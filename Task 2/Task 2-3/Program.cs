@@ -48,6 +48,8 @@ namespace Task_2_3
         /// <returns>Описание пересечения или сообщение об ошибке границ.</returns>
         static string DescribeIntersection(double a, double b, double c, double d)
         {
+            const double tolerance = 1e-10;
+
             if (a > b || c > d)
             {
                 return "Границы отрезков заданы неверно: должно быть a ≤ b и c ≤ d.";
@@ -61,7 +63,7 @@ namespace Task_2_3
                 return "Пересечения нет.";
             }
 
-            if (left == right)
+            if (Math.Abs(left - right) <= tolerance)
             {
                 return $"Пересечение — точка {left}.";
             }
