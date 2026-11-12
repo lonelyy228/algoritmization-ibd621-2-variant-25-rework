@@ -7,7 +7,13 @@ namespace Task_2_1
     /// </summary>
     internal enum Calculation
     {
+        /// <summary>Вариант вычисления не выбран.</summary>
+        None = 0,
+
+        /// <summary>Вычислить медиану к стороне a.</summary>
         Median = 1,
+
+        /// <summary>Вычислить биссектрису к стороне a.</summary>
         Bisector = 2
     }
 
@@ -20,6 +26,12 @@ namespace Task_2_1
         static void Main(string[] args)
         {
             Calculation calculation = GetCalculation();
+            if (calculation == Calculation.None)
+            {
+                Console.WriteLine("Вариант вычисления не выбран.");
+                return;
+            }
+
             double a = GetPositiveNumber("Введите сторону a = ");
             double b = GetPositiveNumber("Введите сторону b = ");
             double c = GetPositiveNumber("Введите сторону c = ");
@@ -49,14 +61,25 @@ namespace Task_2_1
         {
             while (true)
             {
-                Console.Write("1 — медиана, 2 — биссектриса: ");
-                string input = Console.ReadLine()!;
-                if (int.TryParse(input, out int number) && (number == 1 || number == 2))
+                Console.Write($"{(int)Calculation.Median} — медиана, {(int)Calculation.Bisector} — биссектриса: ");
+                string? input = Console.ReadLine();
+                if (input == null)
                 {
-                    return (Calculation)number;
+                    return Calculation.None;
                 }
 
-                Console.WriteLine("Введите 1 или 2.");
+                Calculation choice = Calculation.None;
+                if (int.TryParse(input, out int number))
+                {
+                    choice = (Calculation)number;
+                }
+
+                if (choice == Calculation.Median || choice == Calculation.Bisector)
+                {
+                    return choice;
+                }
+
+                Console.WriteLine($"Введите {(int)Calculation.Median} или {(int)Calculation.Bisector}.");
             }
         }
 
