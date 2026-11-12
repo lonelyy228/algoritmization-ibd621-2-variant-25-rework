@@ -15,12 +15,6 @@ namespace Task_1_1
             const double c = 3;
 
             double x = GetNumber("Введите x = ");
-            if (x * x + Math.Sin(x) == 0)
-            {
-                Console.WriteLine("При этом x знаменатель равен нулю. Значение функции не определено.");
-                return;
-            }
-
             double y = GetResult(a, b, c, x);
 
             Console.WriteLine($"x = {x}; y = {y}");
@@ -33,22 +27,8 @@ namespace Task_1_1
         /// <returns>Введённое число.</returns>
         static double GetNumber(string message)
         {
-            while (true)
-            {
-                Console.Write(message);
-                string? input = Console.ReadLine();
-                if (input == null)
-                {
-                    throw new InvalidOperationException("Ввод завершён.");
-                }
-
-                if (double.TryParse(input, out double value) && double.IsFinite(value))
-                {
-                    return value;
-                }
-
-                Console.WriteLine("Введите число.");
-            }
+            Console.Write(message);
+            return double.Parse(Console.ReadLine()!);
         }
 
         /// <summary>
